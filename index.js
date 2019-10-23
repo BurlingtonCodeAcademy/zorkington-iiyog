@@ -7,6 +7,19 @@ function ask(questionText) {
   });
 }
 
+
+
+/*  roomOne =  outside 182 main - unlock door
+    roomTwo = foyer - read sign
+    roomThree = stairs ?
+    roomFour = classroom - play w chairs - check - alex c
+    roomFive = muddy's coffee return to class
+    roomSix = status hunger mr mikes 
+    
+    player inventory
+    room inventory
+    player status*/
+
 // remember the StateMachine lecture
 // https://bootcamp.burlingtoncodeacademy.com/lessons/cs/state-machines
 let states = {
@@ -15,7 +28,15 @@ let states = {
   'roomThree': { canChangeTo: [ 'roomOne' ] }
 };
 
-let currentState = "green";
+
+/*let sign = {
+  description: "Welcome to Burlington Code Academy! Come on up to the third floor.\n If the door is locked, use the code 12345."
+  read: () => {
+    return this.description
+  }
+}*/
+
+let currentState = "roomOne";
 
 function enterState(newState) {
   let validTransitions = states[currentState].canChangeTo;
@@ -26,14 +47,25 @@ function enterState(newState) {
   }
 }
 
+
 start();
 
 async function start() {
-  const welcomeMessage = `182 Main St.
-You are standing on Main Street between Church and South Winooski.
+  const welcomeMessage = `Your standing at 182 Main St. between Church and South Winooski.
 There is a door here. A keypad sits on the handle.
-On the door is a handwritten sign.`;
-  let answer = await ask(welcomeMessage);
-  console.log('Now write your code to make this work!');
-  process.exit();
+On the door is a handwritten sign. Welcome please enter your code to enter!\n>`;
+
+// 12345 === 1234 to enter else throw error + "Please don't take the sign"
+
+let answer = await ask(welcomeMessage);
+  //console.log('!\n>');
+
+
+  while(answer !== 'exit') {
+    answer = await ask('>_ ')
+    process.exit();
+    
+  }
 }
+
+
